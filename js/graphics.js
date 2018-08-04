@@ -1,7 +1,24 @@
 ;(function($, game) {
 
-  const $start  = $('#start');
-  const $finish = $('#finish');
+  const $board = $('#board');
+
+  const $start  = $(`
+    <div class="screen screen-start" id="start">
+      <header>
+        <h1>Tic Tac Toe</h1>
+        <a href="#" class="button">Start game</a>
+        </header>
+    </div>
+  `);
+  const $finish = $(`
+    <div class="screen screen-win" style="display: none;" id="finish">
+      <header>
+        <h1>Tic Tac Toe</h1>
+        <p class="message"></p>
+        <a href="#" class="button">New game</a>
+      </header>
+    </div>
+  `);
   const $boxes  = $('.boxes');
 
   let playerImage = 'o';
@@ -14,6 +31,9 @@
     playerImage = player === 1 ? 'o' : 'x';
 
   }
+
+  $board.after($start);
+  $board.after($finish);
 
   $start.find('a.button').on('click', () => game.start());
   $finish.find('a.button').on('click', () => game.start());
@@ -31,7 +51,7 @@
     activate(player);
 
   };
-  
+
   game.onplayerchange = (player) => activate(player);
   game.onend = (winner) => {
 

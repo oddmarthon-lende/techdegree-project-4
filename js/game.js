@@ -3,6 +3,7 @@ var tictactoe = (function() {
   let player = 1;
   let board;
 
+  // Check for winner or tie
   // Returns true if the game is over
   function check() {
 
@@ -10,6 +11,7 @@ var tictactoe = (function() {
     let current;
     let zeros = 0;
 
+    // Checks for three in a row
     function three(n) {
 
       if(n && current != n) {
@@ -20,12 +22,14 @@ var tictactoe = (function() {
         count++;
       }
 
+      // Call onend if there is three in a row or column etc...
       if(count === 2 && current === n && typeof exports.onend === 'function')
         return exports.onend(current), true;
 
       return false;
     }
 
+    // Check each row
     for(let column = 0; column < 3; column++) {
 
       count = 0;
@@ -40,9 +44,12 @@ var tictactoe = (function() {
       }
     }
 
+    // If the board is full
+    // call onend
     if(!zeros && typeof exports.onend === 'function')
       return exports.onend(undefined), true;
 
+    // Check each column
     for(let row = 0; row < 3; row++) {
 
       count = 0;
@@ -57,6 +64,7 @@ var tictactoe = (function() {
     count = 0;
     current = null;
 
+    // Check diagonally
     for(let column = 0, row = 0; column < 3; column++, row++) {
       if(three(board[column][row]))
         return true;
@@ -74,6 +82,9 @@ var tictactoe = (function() {
 
   }
 
+  // Play as the current player
+  // and mark the board at column, row
+  // Returns true if success false if not
   function play(column, row) {
 
     if(board && board[column][row] === 0) {
@@ -89,6 +100,7 @@ var tictactoe = (function() {
     return false;
   };
 
+  // Start a new game
   function start() {
     board = [
       [0, 0, 0],
@@ -96,6 +108,7 @@ var tictactoe = (function() {
       [0, 0, 0]
     ];
 
+    // Call onstart if it is a function
     if(typeof exports.onstart === 'function')
       exports.onstart(player);
 
