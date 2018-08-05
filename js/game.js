@@ -44,11 +44,6 @@ var tictactoe = (function() {
       }
     }
 
-    // If the board is full
-    // call onend
-    if(!zeros && typeof exports.onend === 'function')
-      return exports.onend(undefined), true;
-
     // Check each column
     for(let row = 0; row < 3; row++) {
 
@@ -77,6 +72,11 @@ var tictactoe = (function() {
       if(three(board[column][row]))
         return true;
     }
+
+    // If the board is full
+    // call onend
+    if(!zeros && typeof exports.onend === 'function')
+      return exports.onend(undefined), true;
 
     return false;
 
